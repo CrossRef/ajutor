@@ -18,8 +18,8 @@
 (def doi-status-invalid 4)
 
 ; Mongo collection
-(def ra-db "doiraproxy")
-(def ra-collection "ra")
+(def ra-db "ology")
+(def ra-collection "dois")
 
 (mg/connect!)
 (mg/set-db! (mg/get-db ra-db))
