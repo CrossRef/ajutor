@@ -4,6 +4,9 @@
 
 (def dx-doi-url "http://dx.doi.org/")
 
-; Convert DOIs in URL format into canonical format (not a URL).
-(def normalise-doi (partial remove-leading dx-doi-url))
+; Convert DOIs into canonical format (with a URL).
+(def normalise-doi (partial add-leading dx-doi-url))
+
+; Convert DOI into URL format.
+(def non-url-doi (partial remove-leading dx-doi-url))
 

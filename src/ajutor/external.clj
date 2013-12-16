@@ -4,12 +4,6 @@
 
 (def doi-registration-authority-service-url "http://doi.crossref.org/ra/")
 
-(def deposit-harvest-service-url "http://oai.crossref.org/DepositHarvester?")
-
-(def search-doi-service-url "http://doi.crossref.org/search/doi")
-
-(def works-api-service-url "http://api.crossref.org/works/" )
-
 (defn lookup-ra
   "Talk to the RA webservice, return status as one of :crossref :other-ra :does-not-exist :invalid :not-available"
   [doi]
