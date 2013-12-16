@@ -1,4 +1,4 @@
-# ajutor - Clojure helper functions
+# ajutor - Helper functions and services.
 
 ## Features
 
@@ -29,7 +29,6 @@ To start a web server for the application, run:
 ## License
 
 Copyright © 2013 CrossRef
-
 
 ## Todo
 

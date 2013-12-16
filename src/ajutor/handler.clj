@@ -3,12 +3,12 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [ajutor.persistence :as persistence]
+            [ajutor.external :as external]
             )
   
   (:use ring.middleware.json)
   (:use ring.util.response)
   
-  (:use ajutor.external)
   (:use ajutor.util)
   (:use ajutor.doi)
   
@@ -55,7 +55,7 @@
           :does-not-exist (response-for-status status doi)
           
           ; The DOI was not found in the database. 
-          :not-found (let [status (lookup-ra-from-service doi)]
+          :not-found (let [status (external/lookup-ra doi)]
                             (persistence/update-doi doi status)
                             (response-for-status status doi))
           (response-for-status :invalid doi)
