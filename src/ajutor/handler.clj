@@ -54,9 +54,9 @@
           
           ; The DOI was not found in the database. 
           :not-found (let [status (external/lookup-ra non-url-doi)]
-                            (persistence/update-doi normalised-doi status)
-                            (response-for-status status non-url-doi))
-          (response-for-status :invalid non-url-doi)))))
+            (persistence/update-doi normalised-doi status)
+            (response-for-status status non-url-doi))
+            (response-for-status :invalid non-url-doi)))))
 
 (defn home [request]
   "DOI Registration Agency Proxy")

@@ -12,13 +12,13 @@
   )
 
 ; Status that a DOI can have. 
-(def doi-status-crossref 1)
-(def doi-status-other-ra 2)
+(def doi-status-other-ra 1)
+(def doi-status-crossref 2)
 (def doi-status-does-not-exist 3)
 (def doi-status-invalid 4)
 
 ; Mongo collection
-(def ra-db "ology")
+(def ra-db "ology") ; legacy name, existing database
 (def ra-collection "dois")
 
 (mg/connect!)
@@ -35,16 +35,15 @@
 (defn update-doi 
   "Update the store with a DOI and its status, one of :crossref :other-ra :does-not-exist :invalid"
   [doi status]
-  (let [to-insert (case status
-    :crossref {:doi doi :status doi-status-crossref}
-    :other-ra {:doi doi :status doi-status-other-ra}
-    :does-not-exist {:doi doi :status doi-status-does-not-exist :does-not-exist-at (now)}
-    :invalid {:doi doi :status doi-status-invalid}
-    )]
-  (update ra-collection {:doi doi} to-insert :upsert true)
-  )
-  )
-
+  (when (not= status :not-available)
+    (let [to-insert (case status
+      :crossref {:doi doi :status doi-status-crossref}
+      :other-ra {:doi doi :status doi-status-other-ra}
+      :does-not-exist {:doi doi :status doi-status-does-not-exist :does-not-exist-at (now)}
+      :invalid {:doi doi :status doi-status-invalid}
+      )]
+    (update ra-collection {:doi doi} to-insert :upsert true))))
+  
 (defn lookup-doi
   "Get the status of a DOI, one of :crossref :other-ra :does-not-exist :invalid :not-found"
   [doi]

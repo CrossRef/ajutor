@@ -13,9 +13,10 @@
         (if (= (-> response :body first :status) "Invalid DOI")
           :invalid
           (case (-> response :body first :RA)
+            nil :not-available
             "CrossRef" :crossref
             "DOI does not exist" :does-not-exist
             :other-ra
           )))
-        (catch java.net.SocketException e :not-available)))
+        (catch Exception _ :not-available)))
   
